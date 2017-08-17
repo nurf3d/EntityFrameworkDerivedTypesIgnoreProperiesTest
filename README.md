@@ -46,8 +46,12 @@ Since we need the state property within the odata-api we are not using the **[No
 
 ### FluentConfiguration
 
-`modelBuilder.Types<BaseEntity>().Configure(clazz => clazz.Ignore(prop => prop.State));`
+~~`modelBuilder.Types<BaseEntity>().Configure(clazz => clazz.Ignore(prop => prop.State));`~~
+
+~~`add-migration Initial -Force`~~
+
+~~_You cannot use Ignore method on the property 'State' on type 'EntityFrameworkIgnoreProperty.Models.DerivedEvent1' because this type inherits from the type 'EntityFrameworkIgnoreProperty.Models.BaseEntity' where this property is mapped. To exclude this property from your model, use NotMappedAttribute or Ignore method on the base type._~~
+
+`modelBuilder.Types<BaseEntity>().Where(t => t.BaseType == typeof(BaseEntity)).Configure(clazz => clazz.Ignore(prop => prop.State));`
 
 `add-migration Initial -Force`
-
-_You cannot use Ignore method on the property 'State' on type 'EntityFrameworkIgnoreProperty.Models.DerivedEvent1' because this type inherits from the type 'EntityFrameworkIgnoreProperty.Models.BaseEntity' where this property is mapped. To exclude this property from your model, use NotMappedAttribute or Ignore method on the base type._
